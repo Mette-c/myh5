@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商品详情页</title>
+    <script src="./utils/tools.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        #goodslist li {
+            width: 200px;
+            float: left;
+            margin: 10px;
+        }
+
+        #goodslist li img {
+            width: 100%;
+        }
+
+        .price del {
+            color: #333;
+            margin-right: 6px;
+        }
+
+        .price span {
+            color: red;
+        }
+
+        .price span::before {
+            content: '￥';
+        }
+    </style>
+</head>
+
+<body>
+    <h1>商品详情页</h1>
+    <select id="select"></select>
+    <div id="goodslist"></div>
+
+    </select>
+    <script>
+        const goodslist = document.querySelector('#goodslist');
+        const select = document.querySelector('#select');
+        const goodslistHandle= function({data}){
+             //解构赋值
+             const html = data.result.map(item => {
+                    return `<li>
+                        <img src="http://120.76.247.5:2003${item.img_url}"/>
+                        <h4>${item.goods_name}</h4>
+                        <p>${item.category}</p>
+                        <p class="price"><del>${item.price}</del><span>${item.sales_price}</span></p>
+                    </li>`;
+                }).join('')
+                goodslist.innerHTML = html;
+        }
+        request('/goods?category=女士表',goodslistHandle);
+        //获取商品分类
+        request('/category', function ({ data }) {
+            console.log('category=', data);
+            select.innerHTML = data.result.map(item => {
+                return `<option value="${item.text}">${item.text}</option>`;
+            })
+        })
+        //监听select的选择监听
+        select.onchange = function () {
+            const cat = this.value;
+            request('/goods?category='+cat,goodslistHandle)
+        }
+    </script>
+</body>
+
+</html>
