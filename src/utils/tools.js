@@ -7,7 +7,10 @@ function request(url,callback,method='get') {
     const xhr = new XMLHttpRequest();
     xhr.onload = function(){
         let data = JSON.parse(xhr.responseText);
-        callback(data);
+        if(typeof callback === 'function'){
+            callback(data);
+        }
+       
     }
     //设置请求参数
     xhr.open(method,url,true);

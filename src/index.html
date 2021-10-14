@@ -5,18 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>商品详情页</title>
+    <title>首页</title>
     <script src="./utils/tools.js"></script>
+    <link rel="stylesheet" href="./css/common.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
-
-        li {
-            list-style: none;
-        }
-
         #goodslist li {
             width: 200px;
             float: left;
@@ -27,23 +19,12 @@
             width: 100%;
         }
 
-        .price del {
-            color: #333;
-            margin-right: 6px;
-        }
-
-        .price span {
-            color: red;
-        }
-
-        .price span::before {
-            content: '￥';
-        }
     </style>
 </head>
 
 <body>
     <h1>商品详情页</h1>
+    <a href="goodslist"></a>
     <select id="select"></select>
     <div id="goodslist"></div>
 
@@ -55,7 +36,7 @@
              //解构赋值
              const html = data.result.map(item => {
                     return `<li>
-                        <img src="http://120.76.247.5:2003${item.img_url}"/>
+                        <a href="goodslist.html?id=${item._id}&a="><img src="http://120.76.247.5:2003${item.img_url}"/><a>
                         <h4>${item.goods_name}</h4>
                         <p>${item.category}</p>
                         <p class="price"><del>${item.price}</del><span>${item.sales_price}</span></p>

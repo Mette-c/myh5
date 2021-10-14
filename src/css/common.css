@@ -1,0 +1,20 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+.price del {
+    color: #333;
+    margin-right: 6px;
+}
+
+.price span {
+    color: red;
+}
+
+.price span::before {
+    content: '￥';
+}
